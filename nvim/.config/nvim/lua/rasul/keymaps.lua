@@ -47,6 +47,7 @@ map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 map({ "n", "v" }, "<C-y>", [["+y]], opts)
 map({ "n", "v" }, "<C-x>", [["+x]], opts)
 map("", "<C-p>", [["+p]], opts)
+map("n", "VA", "ggVG", opts)
 
 -- Toggle Light/Dark mode
 map("", "<F9>", [[':set bg='.(&bg=='dark' ? "light" : "dark")."<CR>"]], opts_expr)

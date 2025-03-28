@@ -1,7 +1,0 @@
-{
-    '7690283f-5af2-455e-b8fb-0a62a791721f': <{'name': 'Unlock', 'command': 'loginctl unlock-session'}>,
-    'lock': <{'name': 'Lock', 'command': 'xdg-screensaver lock'}>,
-    'restart': <{'name': 'Restart', 'command': 'systemctl reboot'}>,
-    'poweroff': <{'name': 'Power Off', 'command': 'systemctl poweroff'}>,
-    'suspend': <{'name': 'Suspend', 'command': 'systemctl suspend'}>
-}
