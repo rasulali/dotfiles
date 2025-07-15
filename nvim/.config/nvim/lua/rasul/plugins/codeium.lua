@@ -1,6 +1,6 @@
 return {
-	"Exafunction/codeium.vim",
-	event = "InsertEnter",
+	"Exafunction/windsurf.vim",
+	event = "BufEnter",
 	config = function()
 		-- Disable Default Keybindings
 		vim.g.codeium_disable_bindings = 1
