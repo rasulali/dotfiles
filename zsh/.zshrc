@@ -23,6 +23,7 @@ bindkey "^[[1;5D" backward-word
 export PATH="$HOME/Git/scripts/:$PATH"
 export PATH="$HOME/.cargo/bin/:$PATH"
 export PATH="/home/rasul/.python/bin:$PATH"
+export PATH="/home/rasul/.local/bin:$PATH"
 
 # Remove ESC key binding
 bindkey -r '\e'
