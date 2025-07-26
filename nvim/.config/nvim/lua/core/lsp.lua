@@ -38,19 +38,16 @@ vim.diagnostic.config({
 })
 
 -- ================================
--- KEYMAPS FROM OLD CONFIG
+-- KEYMAPS
 -- ================================
--- Add your old keymaps using LspAttach autocmd
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 		local opts = { noremap = true, silent = true, buffer = ev.buf }
 		local map = vim.keymap.set
 
-		-- Your original keymaps
 		map("n", "gD", vim.lsp.buf.declaration, opts)
 		map("n", "gd", vim.lsp.buf.definition, opts)
 		map("n", "K", vim.lsp.buf.hover, opts)
@@ -75,7 +72,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- ================================
 
 -- 1. LSP RESTART FUNCTIONALITY
--- Allows you to restart LSP clients for current buffer
 local function restart_lsp(bufnr)
 	bufnr = bufnr or vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -94,7 +90,6 @@ vim.api.nvim_create_user_command("LspRestart", function()
 end, {})
 
 -- 2. LSP STATUS INFORMATION
--- Shows detailed status of LSP clients
 local function lsp_status()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -145,7 +140,6 @@ end
 vim.api.nvim_create_user_command("LspStatus", lsp_status, { desc = "Show detailed LSP status" })
 
 -- 3. LSP CAPABILITIES CHECKER
--- Shows all available capabilities of attached LSP servers
 local function check_lsp_capabilities()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -191,7 +185,6 @@ end
 vim.api.nvim_create_user_command("LspCapabilities", check_lsp_capabilities, { desc = "Show LSP capabilities" })
 
 -- 4. DIAGNOSTICS INFORMATION
--- Shows diagnostic counts for current buffer
 local function lsp_diagnostics_info()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local diagnostics = vim.diagnostic.get(bufnr)
@@ -214,7 +207,6 @@ end
 vim.api.nvim_create_user_command("LspDiagnostics", lsp_diagnostics_info, { desc = "Show LSP diagnostics count" })
 
 -- 5. COMPREHENSIVE LSP INFO
--- Shows everything: clients, diagnostics, capabilities overview
 local function lsp_info()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local clients = vim.lsp.get_clients({ bufnr = bufnr })
