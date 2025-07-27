@@ -178,7 +178,7 @@ return {
 			{ "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Commands" },
 			{ "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>", desc = "Document Diagnostics" },
 			{ "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace Diagnostics" },
-			{ "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Grep (Root Dir)" },
+			{ "<leader>gg", "<cmd>FzfLua live_grep<cr>", desc = "Grep (Root Dir)" },
 			{ "<leader>sG", "<cmd>FzfLua live_grep cwd_only=true<cr>", desc = "Grep (cwd)" },
 			{ "<leader>sh", "<cmd>FzfLua help_tags<cr>", desc = "Help Pages" },
 			{ "<leader>sH", "<cmd>FzfLua highlights<cr>", desc = "Search Highlight Groups" },

@@ -1,29 +1,10 @@
 return {
 	{
-		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		event = "InsertEnter",
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
-		end,
-	},
-	{
 		"saghen/blink.cmp",
-		dependencies = {
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
-		},
 		event = "InsertEnter",
 		version = "*",
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
-			snippets = {
-				preset = "luasnip",
-				expand = function(snippet)
-					require("luasnip").lsp_expand(snippet.body)
-				end,
-			},
 			appearance = {
 				use_nvim_cmp_as_default = false,
 			},
@@ -47,7 +28,7 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "buffer" },
 				---@diagnostic disable-next-line: missing-fields
 				providers = {},
 			},
