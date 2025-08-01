@@ -28,7 +28,7 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "buffer" },
+				default = { "lsp", "buffer", "snippets", "path" },
 				---@diagnostic disable-next-line: missing-fields
 				providers = {},
 			},

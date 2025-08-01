@@ -1,6 +1,7 @@
 -- Mason PATH is handled by core.mason-path
 vim.lsp.enable({
 	"lua-ls",
+	"emmet-ls",
 	"css-ls",
 	"ts-ls",
 	"html-ls",
