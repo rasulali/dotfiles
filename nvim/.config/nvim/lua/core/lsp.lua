@@ -6,6 +6,7 @@ vim.lsp.enable({
 	"ts-ls",
 	"html-ls",
 	"tailwindcss",
+	"pyright",
 })
 
 -- LSP servers are automatically managed by Mason
