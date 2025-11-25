@@ -6,7 +6,7 @@ vim.lsp.enable({
 	"html-ls",
 	"tailwindcss",
 	"pyright",
-	"llm",
+	"llm-ls",
 	"sourcekit",
 })
 
