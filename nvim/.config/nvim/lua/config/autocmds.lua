@@ -1,6 +1,47 @@
 -- Variables
 local autocmd = vim.api.nvim_create_autocmd
 
+local _make_position_params = vim.lsp.util.make_position_params
+vim.lsp.util.make_position_params = function(window, offset_encoding)
+	return _make_position_params(window, offset_encoding or "utf-16")
+end
+
+autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("LspUtf16", { clear = true }),
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and not client.offset_encoding then
+			client.offset_encoding = "utf-16"
+		end
+	end,
+})
+
+-- Keep Neovim background in sync with macOS appearance
+local function apply_macos_background()
+	if vim.fn.has("macunix") == 0 then
+		return
+	end
+
+	local handle = io.popen([[defaults read -g AppleInterfaceStyle 2>/dev/null]])
+	if not handle then
+		return
+	end
+
+	local output = handle:read("*a")
+	handle:close()
+
+	local detected = (output and output:match("Dark")) and "dark" or "light"
+	if vim.o.background ~= detected then
+		vim.o.background = detected
+		local colorscheme = vim.g.colors_name or "gruvbox-material"
+		pcall(vim.cmd.colorscheme, colorscheme)
+	end
+end
+
+autocmd({ "VimEnter", "FocusGained" }, {
+	callback = apply_macos_background,
+})
+
 -- Clean default format on BufEnter
 autocmd("BufEnter", {
 	pattern = "*",

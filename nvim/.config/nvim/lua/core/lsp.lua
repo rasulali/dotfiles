@@ -1,4 +1,3 @@
--- Mason PATH is handled by core.mason-path
 vim.lsp.enable({
 	"lua-ls",
 	"emmet-ls",
@@ -7,6 +6,8 @@ vim.lsp.enable({
 	"html-ls",
 	"tailwindcss",
 	"pyright",
+	"llm",
+	"sourcekit",
 })
 
 -- LSP servers are automatically managed by Mason
