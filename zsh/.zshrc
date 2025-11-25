@@ -5,8 +5,13 @@ setopt HIST_IGNORE_ALL_DUPS
 
 zstyle :compinstall filename '$HOME/.zshrc'
 
+# Homebrew
+export HOMEBREW_NO_ENV_HINTS=1
+
+# Ollama
+export OLLAMA_KEEP_ALIVE=60
+
 # Prompt
-fpath+=$HOME/Git/typewritten
 autoload -U promptinit; promptinit
 prompt typewritten
 TYPEWRITTEN_CURSOR="block"
@@ -20,10 +25,15 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
 # Path
-export PATH="$HOME/Git/scripts/:$PATH"
-export PATH="$HOME/.cargo/bin/:$PATH"
-export PATH="/home/rasul/.python/bin:$PATH"
-export PATH="/home/rasul/.local/bin:$PATH"
+export PATH="$HOME/Git/scripts:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.python/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$GOPATH/bin:$PATH"
+# Homebrew adds pbcopy/pbpaste and other macOS CLI tools
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Remove ESC key binding
 bindkey -r '\e'
@@ -42,11 +52,10 @@ _comp_options+=(globdots)
 # Auto cd
 setopt autocd
 
-# custom aliases
+alias la="ls -lhaG"
+alias ls="ls -G"
+alias ll="ls -lhG"
 alias so='source $HOME/.zshrc'
-alias la="ls -lhAtU --color=auto"
-alias ls="ls -t --group-directories-first  --color=auto"
-alias ll="ls -lhtU --color=auto"
 alias untar='tar xvf'
 alias rf='rm -rvf'
 alias mv='mv -i'
@@ -56,14 +65,12 @@ alias vi='nvim'
 alias v='nvim'
 alias cp='cp -r'
 alias t='tmux'
-alias top='glances'
+alias top='btop'
 orphs() {
-  local pkgs=$(yay -Qdtq)
-    if [ -z "$(echo $pkgs)" ]; then
-      echo -e "\e[1;32mThere are no orphan packages on system\e[0m"
-    else
-        sudo yay -Rns $(echo $pkgs)
-    fi
+  command -v brew >/dev/null 2>&1 || { echo "Homebrew not found."; return 1; }
+  echo "Cleaning Homebrew leaves..."
+  brew autoremove
+  brew cleanup
 }
 
 unzipf() {
@@ -76,16 +83,21 @@ unzipf() {
 }
 
 # bun completions
-[ -s "/home/rasul/.bun/_bun" ] && source "/home/rasul/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/home/rasul/.local/share/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/rasul/.lmstudio/bin"
+# End of LM Studio CLI section
+
