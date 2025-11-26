@@ -31,10 +31,19 @@ local function apply_macos_background()
 	handle:close()
 
 	local detected = (output and output:match("Dark")) and "dark" or "light"
-	if vim.o.background ~= detected then
-		vim.o.background = detected
-		local colorscheme = vim.g.colors_name or "gruvbox-material"
-		pcall(vim.cmd.colorscheme, colorscheme)
+	local current_colorscheme = vim.g.colors_name
+	local target_colorscheme = detected == "dark" and "onedark" or "onelight"
+
+	if vim.o.background == detected and vim.g.colors_name == target_colorscheme then
+		return
+	end
+
+	vim.o.background = detected
+
+	local ok = pcall(vim.cmd.colorscheme, target_colorscheme)
+	if not ok then
+		local fallback = current_colorscheme or "onedark"
+		pcall(vim.cmd.colorscheme, fallback)
 	end
 end
 
