@@ -36,13 +36,6 @@ return {
 			{ "<leader>gf", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Diagnostics" },
 			{ "<leader>qf", "<cmd>FzfLua quickfix<cr>", desc = "Quickfix List" },
 			{
-				"<leader>ll",
-				function()
-					require("config.llm_switcher").pick()
-				end,
-				desc = "Switch LLM preset",
-			},
-			{
 				"<C-g>",
 				function()
 					vim.fn.system("git rev-parse --is-inside-work-tree")

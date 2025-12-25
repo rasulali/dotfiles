@@ -27,16 +27,6 @@ map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
--- Better split navigation
-map("n", "<C-A-v>", "<C-w>v", opts)
-map("n", "<C-A-s>", "<C-w>s", opts)
-map("n", "<C-A-c>", "<C-w>c", opts)
-
-map("n", "<C-A-h>", "<C-w>H", opts)
-map("n", "<C-A-j>", "<C-w>J", opts)
-map("n", "<C-A-k>", "<C-w>K", opts)
-map("n", "<C-A-l>", "<C-w>L", opts)
-
 -- Resize with arrows
 map("n", "<C-Up>", ":resize -2<CR>", opts)
 map("n", "<C-Down>", ":resize +2<CR>", opts)
@@ -47,9 +37,6 @@ map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 map({ "n", "v" }, "<C-y>", [["+y]], opts)
 map({ "n", "v" }, "<C-x>", [["+x]], opts)
 map("", "<C-p>", [["+p]], opts)
-
--- Toggle Light/Dark mode
-map("", "<F9>", [[':set bg='.(&bg=='dark' ? "light" : "dark")."<CR>"]], opts_expr)
 
 -- Navigate between buffers
 map("n", "<leader><Tab>", ":bnext<CR>", opts)

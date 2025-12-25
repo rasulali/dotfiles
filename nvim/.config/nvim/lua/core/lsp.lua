@@ -8,6 +8,7 @@ vim.lsp.enable({
 	"pyright",
 	"llm-ls",
 	"sourcekit",
+	"zig",
 })
 
 -- LSP servers are automatically managed by Mason

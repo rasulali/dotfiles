@@ -21,29 +21,20 @@ local function apply_macos_background()
 	if vim.fn.has("macunix") == 0 then
 		return
 	end
-
 	local handle = io.popen([[defaults read -g AppleInterfaceStyle 2>/dev/null]])
 	if not handle then
 		return
 	end
-
 	local output = handle:read("*a")
 	handle:close()
-
 	local detected = (output and output:match("Dark")) and "dark" or "light"
-	local current_colorscheme = vim.g.colors_name
 	local target_colorscheme = detected == "dark" and "onedark" or "onelight"
-
-	if vim.o.background == detected and vim.g.colors_name == target_colorscheme then
-		return
-	end
-
-	vim.o.background = detected
-
-	local ok = pcall(vim.cmd.colorscheme, target_colorscheme)
-	if not ok then
-		local fallback = current_colorscheme or "onedark"
-		pcall(vim.cmd.colorscheme, fallback)
+	if vim.o.background ~= detected or vim.g.colors_name ~= target_colorscheme then
+		vim.o.background = detected
+		pcall(vim.cmd.colorscheme, target_colorscheme)
+		vim.defer_fn(function()
+			pcall(vim.cmd.colorscheme, target_colorscheme)
+		end, 10)
 	end
 end
 
