@@ -9,23 +9,22 @@ return {
 			ensure_installed = {
 				"lua-language-server",
 				"typescript-language-server",
-				"intelephense",
 				"tailwindcss-language-server",
 				"html-lsp",
 				"css-lsp",
 				"emmet-language-server",
-
+				"pyright",
+				"zls",
+				"llm-ls",
+				"intelephense",
 				"stylua",
 				"prettier",
 				"black",
 				"isort",
-
 				"eslint_d",
 				"luacheck",
-
 				"shfmt",
 				"shellcheck",
-
 				"markdownlint",
 				"yamllint",
 				"jsonlint",

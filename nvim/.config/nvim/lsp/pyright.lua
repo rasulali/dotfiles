@@ -46,32 +46,6 @@ return {
 		"force",
 		{},
 		vim.lsp.protocol.make_client_capabilities(),
-		-- If using blink.cmp
 		require("blink.cmp").get_lsp_capabilities()
-		-- If using nvim-cmp instead, use:
-		-- require("cmp_nvim_lsp").default_capabilities()
 	),
-	-- Optional: custom on_attach function
-	on_attach = function(client, bufnr)
-		-- Custom keymaps or settings specific to Pyright
-		-- This will run in addition to your global LspAttach autocmd
-
-		-- Example: disable hover in favor of another provider
-		-- client.server_capabilities.hoverProvider = false
-
-		-- Example: Python-specific keymaps
-		local opts = { noremap = true, silent = true, buffer = bufnr }
-		vim.keymap.set("n", "<leader>oi", function()
-			vim.lsp.buf.code_action({
-				filter = function(action)
-					return action.kind and string.match(action.kind, "source%.organizeImports")
-				end,
-				apply = true,
-			})
-		end, opts)
-	end,
-	-- Optional: custom initialization options
-	init_options = {
-		-- Custom initialization options if needed
-	},
 }
