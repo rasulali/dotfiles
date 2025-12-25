@@ -1,0 +1,7 @@
+theme = light:One Double Light,dark:One Double Dark
+bell-features = no-title
+font-size = 16
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+confirm-close-surface = false
