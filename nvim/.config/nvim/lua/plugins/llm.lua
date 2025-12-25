@@ -207,6 +207,7 @@ function Switcher.new(opts)
 	local self = setmetatable({}, Switcher)
 	self.presets = vim.deepcopy(opts.presets or {})
 	self.current = opts.default or next(self.presets)
+	self.enabled = true
 	return self
 end
 
@@ -231,6 +232,11 @@ function Switcher:switch(name)
 
 	local label = preset.model or preset.backend or name
 	vim.notify(string.format("[LLM] Switched to %s (%s)", name, label), vim.log.levels.INFO)
+end
+
+function Switcher:toggle()
+	self.enabled = not self.enabled
+	vim.cmd("LLMToggleAutoSuggest")
 end
 
 function Switcher:names()
@@ -296,8 +302,18 @@ function Switcher:pick()
 		table.insert(entries, entry)
 	end
 
+	local status_icon = self.enabled and "󰄵" or "󰄱"
+	local status_text = self.enabled and "ON" or "OFF"
+
+	local fzf_colors = self.enabled and {} or {
+		["fg"] = "8",
+		["fg+"] = "7",
+		["hl"] = "8",
+		["hl+"] = "7",
+	}
+
 	fzf.fzf_exec(entries, {
-		prompt = "LLM > ",
+		prompt = string.format("LLM [%s %s] > ", status_icon, status_text),
 		fzf_opts = {
 			["--no-separator"] = "",
 			["--info"] = "inline-right",
@@ -305,6 +321,13 @@ function Switcher:pick()
 			["--border"] = "rounded",
 			["--pointer"] = ">",
 			["--marker"] = "+",
+			["--header"] = "ctrl-l: toggle autocompletion",
+			["--color"] = vim.tbl_isempty(fzf_colors) and nil or table.concat(
+				vim.tbl_map(function(k)
+					return k .. ":" .. fzf_colors[k]
+				end, vim.tbl_keys(fzf_colors)),
+				","
+			),
 		},
 		winopts = {
 			width = 0.7,
@@ -324,6 +347,12 @@ function Switcher:pick()
 				if name then
 					self:switch(name)
 				end
+			end,
+			["ctrl-l"] = function()
+				self:toggle()
+				vim.schedule(function()
+					self:pick()
+				end)
 			end,
 		},
 	})
@@ -388,6 +417,10 @@ return {
 				return switcher:names()
 			end,
 		})
+
+		vim.api.nvim_create_user_command("LLMToggle", function()
+			switcher:toggle()
+		end, {})
 
 		vim.keymap.set("n", "<leader>ll", function()
 			switcher:pick()
