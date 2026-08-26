@@ -26,9 +26,11 @@ fi
 # Environment variables
 export EDITOR=nvim
 export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH="$HOME/.local/bin:$PATH"
 export JAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home
 export PATH=$JAVA_HOME/bin:$PATH
 
@@ -69,6 +71,7 @@ alias v='nvim'
 alias cp='cp -r'
 alias t='tmux'
 alias top='sudo asitop'
+alias cc='claude --dangerously-skip-permissions'
 
 orphs() {
   command -v brew >/dev/null 2>&1 || { echo "Homebrew not found."; return 1; }
@@ -113,3 +116,4 @@ fpath=(/Users/rasul/.docker/completions $fpath)
 
 # Conda
 source /opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh
+export PATH="$HOME/.grok/bin:$PATH"

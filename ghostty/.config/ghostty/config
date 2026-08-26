@@ -1,3 +1,5 @@
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
 theme = light:One Double Light,dark:One Double Dark
 bell-features = no-title
 font-size = 16
